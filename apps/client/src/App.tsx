@@ -7,6 +7,7 @@ import ComparisonPage from "./pages/ComparisonPage";
 import Community from "./pages/Community";
 import Inspiration from "./pages/Inspiration";
 import Profile from "./pages/Profile";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/community" element={<Community />} />
         <Route path="/inspiration" element={<Inspiration />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

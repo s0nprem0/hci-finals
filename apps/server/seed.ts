@@ -8,6 +8,7 @@ db.run("DELETE FROM theme_analyses");
 db.run("DELETE FROM literary_works");
 db.run("DELETE FROM discussions");
 db.run("DELETE FROM users");
+db.run("DELETE FROM sqlite_sequence"); // reset auto-increment counters
 
 // Seed literary works
 const works = [

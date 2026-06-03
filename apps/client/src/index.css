@@ -104,6 +104,9 @@ h1, h2, h3, h4 { font-family: var(--font-serif); }
   .detail-meta-item {
     @apply flex gap-3 py-3 border-b border-white/4 last:border-b-0;
   }
+  .comment-avatar {
+    @apply w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-bg shrink-0;
+  }
   .forum-card {
     @apply bg-surface rounded-card p-5 border border-white/4 cursor-pointer transition-all hover:border-teal;
   }

@@ -14,26 +14,28 @@ export default function Inspiration() {
     <div className="max-w-[1400px] mx-auto p-8">
       <div className="flex items-center justify-between mb-2">
         <h1 className="page-title">🎨 Inspiration Hub</h1>
-        <button className="btn-teal">＋ New Board</button>
+        <button className="btn-teal" aria-label="Create a new board">＋ New Board</button>
       </div>
       <p className="page-subtitle">Creative moodboards, visual references, and ideation tools</p>
 
-      <div className="flex gap-3 mb-6">
+      <div className="flex gap-3 mb-6" role="tablist" aria-label="Filter inspiration boards">
         {["📁 Moodboard", "🖼️ Visual Refs", "📝 Notes", "🎬 Film Stills"].map(f => (
-          <div key={f} className="bg-surface rounded-lg px-5 py-3 flex items-center gap-2 cursor-pointer border border-white/4 text-sm">{f}</div>
+          <button key={f} className="bg-surface rounded-lg px-5 py-3 flex items-center gap-2 cursor-pointer border border-white/4 text-sm font-sans" role="tab">
+            {f}
+          </button>
         ))}
       </div>
 
       <div className="inspo-grid">
         {cards.map((c, i) => (
-          <div key={i} className="inspo-card bg-surface rounded-card p-5 mb-4 border border-white/4" style={{ borderLeft: `3px solid ${c.color}` }}>
+          <article key={i} className="inspo-card bg-surface rounded-card p-5 mb-4 border border-white/4" style={{ borderLeft: `3px solid ${c.color}` }}>
             <div className="flex items-center gap-2 mb-2.5">
-              <span className="text-lg">{c.icon}</span>
+              <span className="text-lg" aria-hidden>{c.icon}</span>
               <span className="text-xs text-text3 font-medium">{c.type}</span>
             </div>
-            <div className="text-sm text-text2 leading-relaxed mb-2">{c.text}</div>
-            {c.caption && <div className="text-xs text-text3 italic">{c.caption}</div>}
-          </div>
+            <p className="text-sm text-text2 leading-relaxed mb-2">{c.text}</p>
+            {c.caption && <footer className="text-xs text-text3 italic">{c.caption}</footer>}
+          </article>
         ))}
       </div>
     </div>

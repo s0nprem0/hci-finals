@@ -11,43 +11,70 @@ const gradients = [
   "linear-gradient(135deg,#2a2a1a,#4a4a2a)",
 ];
 
-interface Work { _id: string; title: string; author: string; year: number; genre: string; coverEmoji: string; }
+interface Work { id: string; title: string; author: string; year: number; genre: string; coverEmoji: string; }
 
 export default function Home() {
   const [works, setWorks] = useState<Work[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    api.literary.featured().then(setWorks as never);
+    api.literary.featured()
+      .then(data => { setWorks(data as Work[]); setLoading(false); })
+      .catch(e => { setError(e.message); setLoading(false); });
   }, []);
+
+  if (error) return (
+    <div className="max-w-[1400px] mx-auto p-8">
+      <div className="widget text-center py-12">
+        <div className="text-4xl mb-4">⚠️</div>
+        <p className="text-sm text-text2">Could not load data. Is the server running?</p>
+      </div>
+    </div>
+  );
 
   return (
     <div className="max-w-[1400px] mx-auto p-8">
-      <div className="mb-8">
-        <div className="grid grid-cols-[1.5fr_1fr] gap-3 min-h-80">
-          <Link to="/literary" className="hero-card min-h-80" style={{ background: gradients[0] }}>
-            <div className="text-5xl opacity-40">🎭</div>
-            <div className="hero-overlay">
-              <span className="hero-badge">Featured</span>
-              <h2 className="text-3xl font-serif">Romeo and Juliet</h2>
-              <p className="text-sm opacity-80">William Shakespeare · 1597</p>
+      <h1 className="sr-only">LitFilm — Literary vs Film Adaptation Platform</h1>
+
+      {loading ? (
+        <div className="mb-8">
+          <div className="grid grid-cols-[1.5fr_1fr] gap-3 min-h-80">
+            <div className="rounded-2xl bg-surface animate-pulse min-h-80" />
+            <div className="flex flex-col gap-3">
+              <div className="rounded-2xl bg-surface animate-pulse min-h-[152px]" />
+              <div className="rounded-2xl bg-surface animate-pulse min-h-[152px]" />
             </div>
-          </Link>
-          <div className="flex flex-col gap-3">
-            <Link to="/literary" className="hero-card min-h-[152px]" style={{ background: gradients[1] }}>
-              <div className="hero-overlay">
-                <h3 className="text-lg font-serif">The Great Gatsby</h3>
-                <p className="text-xs opacity-75">F. Scott Fitzgerald</p>
-              </div>
-            </Link>
-            <Link to="/literary" className="hero-card min-h-[152px]" style={{ background: gradients[2] }}>
-              <div className="hero-overlay">
-                <h3 className="text-lg font-serif">To Kill a Mockingbird</h3>
-                <p className="text-xs opacity-75">Harper Lee</p>
-              </div>
-            </Link>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="mb-8">
+          <div className="grid grid-cols-[1.5fr_1fr] gap-3 min-h-80">
+            <Link to={works[0] ? `/literary?id=${works[0].id}` : "#"} className="hero-card min-h-80" style={{ background: gradients[0] }}>
+              <div className="text-5xl opacity-40">{works[0]?.coverEmoji || "🎭"}</div>
+              <div className="hero-overlay">
+                <span className="hero-badge">Featured</span>
+                <h2 className="text-3xl font-serif">{works[0]?.title || "Romeo and Juliet"}</h2>
+                <p className="text-sm opacity-80">{works[0] ? `${works[0].author} · ${works[0].year}` : "William Shakespeare · 1597"}</p>
+              </div>
+            </Link>
+            <div className="flex flex-col gap-3">
+              <Link to={works[1] ? `/literary?id=${works[1].id}` : "#"} className="hero-card min-h-[152px]" style={{ background: gradients[1] }}>
+                <div className="hero-overlay">
+                  <h3 className="text-lg font-serif">{works[1]?.title || "The Great Gatsby"}</h3>
+                  <p className="text-xs opacity-75">{works[1]?.author || "F. Scott Fitzgerald"}</p>
+                </div>
+              </Link>
+              <Link to={works[2] ? `/literary?id=${works[2].id}` : "#"} className="hero-card min-h-[152px]" style={{ background: gradients[2] }}>
+                <div className="hero-overlay">
+                  <h3 className="text-lg font-serif">{works[2]?.title || "To Kill a Mockingbird"}</h3>
+                  <p className="text-xs opacity-75">{works[2]?.author || "Harper Lee"}</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-[1fr_300px] gap-6">
         <div>
@@ -55,20 +82,36 @@ export default function Home() {
             <h2 className="section-title">📚 Featured Literary Pieces</h2>
             <Link to="/discover" className="text-sm text-teal font-medium cursor-pointer hover:opacity-70 transition-opacity">View All →</Link>
           </div>
-          <div className="grid grid-cols-3 gap-4">
-            {works.slice(0, 3).map(w => (
-              <Link key={w._id} to={`/literary?id=${w._id}`} className="content-card">
-                <div className="h-35 flex items-center justify-center text-4xl" style={{ background: gradients[works.indexOf(w) % gradients.length] }}>
-                  {w.coverEmoji || "📖"}
+          {loading ? (
+            <div className="grid grid-cols-3 gap-4">
+              {[1, 2, 3].map(i => (
+                <div key={i} className="bg-surface rounded-card overflow-hidden animate-pulse">
+                  <div className="h-35 bg-surface-alt" />
+                  <div className="p-4 space-y-2">
+                    <div className="h-4 bg-surface-alt rounded w-3/4" />
+                    <div className="h-3 bg-surface-alt rounded w-1/2" />
+                  </div>
                 </div>
-                <div className="p-4">
-                  <div className="text-base font-semibold mb-1">{w.title}</div>
-                  <div className="text-xs text-text2 mb-2">{w.author} · {w.year}</div>
-                  <span className="badge-teal">{w.genre}</span>
-                </div>
-              </Link>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : works.length === 0 ? (
+            <p className="text-sm text-text2 py-8 text-center">No literary works found yet.</p>
+          ) : (
+            <div className="grid grid-cols-3 gap-4">
+              {works.slice(0, 3).map(w => (
+                <Link key={w.id} to={`/literary?id=${w.id}`} className="content-card">
+                  <div className="h-35 flex items-center justify-center text-4xl" style={{ background: gradients[works.indexOf(w) % gradients.length] }}>
+                    {w.coverEmoji || "📖"}
+                  </div>
+                  <div className="p-4">
+                    <div className="text-base font-semibold mb-1">{w.title}</div>
+                    <div className="text-xs text-text2 mb-2">{w.author} · {w.year}</div>
+                    <span className="badge-teal">{w.genre}</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
         <aside>
           <div className="widget">
