@@ -1,0 +1,11 @@
+{
+  "name": "hci-finals",
+  "private": true,
+  "scripts": {
+    "dev": "cd apps/server && bun index.ts & cd apps/client && bun run dev & wait",
+    "dev:server": "cd apps/server && bun index.ts",
+    "dev:client": "cd apps/client && bun run dev",
+    "seed": "cd apps/server && bun seed.ts",
+    "build": "cd apps/client && bun run build"
+  }
+}
