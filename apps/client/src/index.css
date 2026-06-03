@@ -1,32 +1,45 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Inter', sans-serif;
-  --font-serif: 'Playfair Display', serif;
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Playfair Display", serif;
 
-  --color-bg: #24273A;
-  --color-surface: #363A4F;
+  --color-bg: #24273a;
+  --color-surface: #363a4f;
   --color-surface-hover: #404460;
-  --color-surface-alt: #494D64;
-  --color-text: #CAD3F5;
-  --color-text2: #A5ADCB;
-  --color-text3: #6C7086;
-  --color-teal: #8BD5CA;
-  --color-blue: #8AADF4;
-  --color-mauve: #C6A0F6;
-  --color-green: #A6DA95;
-  --color-yellow: #EED49F;
-  --color-red: #ED8796;
-  --color-rosewater: #F4DBD6;
+  --color-surface-alt: #494d64;
+  --color-text: #cad3f5;
+  --color-text2: #a5adcb;
+  --color-text3: #6c7086;
+  --color-teal: #8bd5ca;
+  --color-blue: #8aadf4;
+  --color-mauve: #c6a0f6;
+  --color-green: #a6da95;
+  --color-yellow: #eed49f;
+  --color-red: #ed8796;
+  --color-rosewater: #f4dbd6;
 
   --radius-card: 12px;
   --radius-sm: 8px;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-body { background: var(--color-bg); color: var(--color-text); font-family: var(--font-sans); }
-h1, h2, h3, h4 { font-family: var(--font-serif); }
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif);
+}
 
 @layer components {
   .btn-teal {
@@ -145,5 +158,15 @@ h1, h2, h3, h4 { font-family: var(--font-serif); }
   }
 }
 
-.inspo-grid { columns: 3; column-gap: 16px; }
-.inspo-card { break-inside: avoid; }
+.inspo-grid {
+  columns: 3;
+  column-gap: 16px;
+}
+.inspo-card {
+  break-inside: avoid;
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
