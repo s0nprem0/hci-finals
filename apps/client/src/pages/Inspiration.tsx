@@ -13,8 +13,8 @@ export default function Inspiration() {
   return (
     <div className="max-w-[1400px] mx-auto p-8">
       <div className="flex items-center justify-between mb-2">
-        <h1 className="page-title">🎨 Inspiration Hub</h1>
-        <button className="btn-teal" aria-label="Create a new board">＋ New Board</button>
+        <h1 className="page-title shrink-0">🎨 Inspiration Hub</h1>
+        <button className="btn-teal whitespace-nowrap" aria-label="Create a new board">＋ New Board</button>
       </div>
       <p className="page-subtitle">Creative moodboards, visual references, and ideation tools</p>
 

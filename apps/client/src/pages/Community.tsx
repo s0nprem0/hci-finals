@@ -34,8 +34,8 @@ export default function Community() {
   return (
     <div className="max-w-[1400px] mx-auto p-8">
       <div className="flex items-center justify-between mb-2">
-        <h1 className="page-title">Community</h1>
-        <button className="btn-teal" aria-label="Start a new discussion">＋ New Discussion</button>
+        <h1 className="page-title shrink-0">Community</h1>
+        <button className="btn-teal whitespace-nowrap" aria-label="Start a new discussion">＋ New Discussion</button>
       </div>
       <p className="page-subtitle">Discuss literary adaptations, share analyses, and connect with peers</p>
       <div className="grid grid-cols-[2fr_1fr] gap-6">
