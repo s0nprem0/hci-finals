@@ -12,33 +12,33 @@ export default function Discover() {
   useEffect(() => { api.literary.list().then(setWorks as never); }, []);
 
   return (
-    <div className="main">
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+    <div className="max-w-[1400px] mx-auto p-8">
+      <div className="flex items-center justify-between mb-2">
         <h1 className="page-title">Discover</h1>
-        <span className="badge badge-blue">{works.length} Literary Works</span>
+        <span className="badge-blue">{works.length} Literary Works</span>
       </div>
       <p className="page-subtitle">Browse literary works and their film adaptations</p>
 
-      <div className="search-bar">
+      <div className="flex gap-3 mb-6">
         <input className="search-input" type="text" placeholder="Search by title, author, director, genre..." />
-        <button className="btn btn-teal">Search</button>
+        <button className="btn-teal">Search</button>
       </div>
 
-      <div className="filter-chips">
+      <div className="flex gap-2 flex-wrap mb-6">
         {genres.map(g => (
-          <span key={g} className={`filter-chip${g === "All" ? " active" : ""}`}>{g}</span>
+          <span key={g} className={`filter-chip ${g === "All" ? "active" : ""}`}>{g}</span>
         ))}
       </div>
 
       <div className="section-header"><h2 className="section-title">📖 Literary Works</h2></div>
-      <div className="grid grid-4">
+      <div className="grid grid-cols-4 gap-4">
         {works.map(w => (
           <Link key={w._id} to={`/literary?id=${w._id}`} className="content-card">
-            <div className="content-card-img">{w.coverEmoji || "📖"}</div>
-            <div className="content-card-body">
-              <div className="content-card-title">{w.title}</div>
-              <div className="content-card-sub">{w.author} · {w.year}</div>
-              <span className="tag tag-teal">{w.genre}</span>
+            <div className="h-35 flex items-center justify-center text-4xl bg-gradient-to-br from-surface to-surface-alt">{w.coverEmoji || "📖"}</div>
+            <div className="p-4">
+              <div className="text-base font-semibold mb-1">{w.title}</div>
+              <div className="text-xs text-text2 mb-2">{w.author} · {w.year}</div>
+              <span className="tag-teal">{w.genre}</span>
             </div>
           </Link>
         ))}

@@ -2,21 +2,26 @@ import { Link } from "react-router-dom";
 
 export default function Profile() {
   return (
-    <div className="main">
-      <div className="profile-header">
-        <div className="profile-avatar-lg">M</div>
+    <div className="max-w-[1400px] mx-auto p-8">
+      <div className="flex items-center gap-6 mb-8">
+        <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-teal to-blue flex items-center justify-center text-3xl font-bold text-bg font-serif">
+          M
+        </div>
         <div>
-          <h1 className="page-title" style={{ marginBottom: 4 }}>Marco</h1>
-          <div style={{ fontSize: "0.9rem", color: "var(--text2)", marginBottom: 12 }}>Film Student · 21 years old</div>
-          <div className="profile-stats">
+          <h1 className="page-title">Marco</h1>
+          <div className="text-sm text-text2 mb-3">Film Student · 21 years old</div>
+          <div className="flex gap-8">
             {[{ num: 12, label: "Saved" }, { num: 8, label: "Comparisons" }, { num: 98, label: "Posts" }, { num: 3, label: "Boards" }].map(s => (
-              <div key={s.label} className="profile-stat"><div className="profile-stat-num">{s.num}</div><div className="profile-stat-label">{s.label}</div></div>
+              <div key={s.label} className="text-center">
+                <div className="text-xl font-bold">{s.num}</div>
+                <div className="text-xs text-text2 uppercase tracking-wide">{s.label}</div>
+              </div>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="grid grid-2" style={{ gap: 24 }}>
+      <div className="grid grid-cols-2 gap-6">
         <div>
           <div className="section-header"><h2 className="section-title">📚 Saved Research</h2></div>
           {[
@@ -24,14 +29,14 @@ export default function Profile() {
             { title: "The Great Gatsby", access: "Last accessed 5 days ago", badge: "Completed", color: "badge-green" },
             { title: "Macbeth", access: "Last accessed 1 week ago", badge: "Saved", color: "badge-yellow" },
           ].map((item, i) => (
-            <Link key={i} to="/literary" className="content-card" style={{ marginBottom: 12, textDecoration: "none" }}>
-              <div className="content-card-body">
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <Link key={i} to="/literary" className="content-card block mb-3 no-underline">
+              <div className="p-4">
+                <div className="flex justify-between items-center">
                   <div>
-                    <div className="content-card-title">{item.title}</div>
-                    <div className="content-card-sub">{item.access}</div>
+                    <div className="text-base font-semibold mb-1">{item.title}</div>
+                    <div className="text-xs text-text2">{item.access}</div>
                   </div>
-                  <span className={`badge ${item.color}`}>{item.badge}</span>
+                  <span className={item.color}>{item.badge}</span>
                 </div>
               </div>
             </Link>
@@ -39,23 +44,25 @@ export default function Profile() {
         </div>
         <div>
           <div className="widget">
-            <div className="widget-title">📊 Progress</div>
+            <div className="text-sm font-semibold mb-3 font-sans">📊 Progress</div>
             {[
-              { label: "Literary Works Explored", value: "6/12", pct: 50, color: "var(--teal)" },
-              { label: "Comparisons Made", value: "4/8", pct: 50, color: "var(--blue)" },
-              { label: "Community Engagement", value: "98 posts", pct: 65, color: "var(--mauve)" },
+              { label: "Literary Works Explored", value: "6/12", pct: 50, color: "text-teal" },
+              { label: "Comparisons Made", value: "4/8", pct: 50, color: "text-blue" },
+              { label: "Community Engagement", value: "98 posts", pct: 65, color: "text-mauve" },
             ].map((p, i) => (
-              <div key={i} style={{ marginBottom: 16 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-                  <span style={{ fontSize: "0.85rem" }}>{p.label}</span>
-                  <span style={{ fontSize: "0.85rem", color: p.color }}>{p.value}</span>
+              <div key={i} className="mb-4">
+                <div className="flex justify-between mb-1">
+                  <span className="text-sm">{p.label}</span>
+                  <span className={`text-sm ${p.color}`}>{p.value}</span>
                 </div>
-                <div className="progress-bar"><div className="progress-fill" style={{ width: `${p.pct}%`, background: p.color }} /></div>
+                <div className="progress-bar">
+                  <div className={`progress-fill ${i === 0 ? "bg-teal" : i === 1 ? "bg-blue" : "bg-mauve"}`} style={{ width: `${p.pct}%` }} />
+                </div>
               </div>
             ))}
           </div>
           <div className="widget">
-            <div className="widget-title">⚙️ Preferences</div>
+            <div className="text-sm font-semibold mb-3 font-sans">⚙️ Preferences</div>
             {["🔔 Email Notifications", "👁️ Theme: Catppuccin Macchiato", "🌐 Language: English"].map((p, i) => (
               <div key={i} className="widget-item"><div className="widget-item-title">{p}</div></div>
             ))}
